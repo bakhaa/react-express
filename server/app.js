@@ -1,48 +1,35 @@
 import express from 'express';
 import React from 'react';
+import { StaticRouter } from 'react-router';
 import ReactDOMServer from 'react-dom/server';
+import { renderHTML } from './utils';
+import { App } from '../client/App';
 
 const app = express();
 
-function renderHTML({ componentHTML, initialState, metaData, config }) {
-  return `
-      <!DOCTYPE html>
-      <html>
-      <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <link rel="shortcut icon" href="/static/favicon.ico"/>
-          <title>Test</title>
-      </head>
-      <body>
-      <div id="react-view">${componentHTML}</div>
-      <script type="application/javascript">
-        window.__CONFIG__ = ${JSON.stringify({ isJSON: true })};
-      </script>
-      </body>
-      </html>
-  `;
-}
+app.use((req, res) => {
+  const context = {};
 
-const Text = () => (
-  <div>
-    <p>Text</p>
-  </div>
-);
+  const componentHTML = ReactDOMServer.renderToString(
+    <StaticRouter
+      location={req.url}
+      context={context}
+    >
+      <App />
+    </StaticRouter>
+  );
 
-const componentHTML = ReactDOMServer.renderToString(
-  <Text />
-);
-
-const html = renderHTML({
-  componentHTML,
+  if (context.url) {
+    res.writeHead(301, {
+      Location: context.url,
+    });
+    res.end();
+  } else {
+    res.send(renderHTML({ componentHTML }));
+  }
 });
 
-const PORT = process.env.PORT || 3001;
-
-app.use('/', (req, res) => {
-  res.send(html);
-});
+const PORT = process.env.PORT || 3003;
 
 app.listen(PORT, () => {
   console.log(`Server listening on: ${PORT}`); // eslint-disable-line no-console
