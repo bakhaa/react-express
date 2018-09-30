@@ -1,10 +1,13 @@
 {
   "name": "react-expressjs",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Isomorphic application written in ReactJS with ExpressJS server",
-  "main": "index.js",
+  "main": "server/runner.js",
   "scripts": {
-    "dev:server": "cross-env BABEL_ENV='node' nodemon server/runner.js",
+    "build": "cross-env NODE_ENV=production webpack --config webpack/client.prod.js --progress",
+    "dev": "webpack-dev-server --config webpack/client.dev.js",
+    "dev:server": "npm run build && cross-env BABEL_ENV='node' nodemon --watch server server/runner.js",
+    "start": "npm run build && node server/runner.js",
     "lint": "eslint --ext .jsx,.js ./"
   },
   "repository": {
@@ -23,13 +26,16 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "cross-env": "^5.2.0",
+    "ejs": "^2.6.1",
     "express": "^4.16.3",
+    "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
@@ -37,12 +43,22 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
+    "babel-loader": "^8.0.4",
     "eslint": "^5.6.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
     "nodemon": "^1.18.4",
-    "webpack": "^4.20.2"
+    "react-hot-loader": "^4.3.11",
+    "redux-logger": "^3.0.6",
+    "style-loader": "^0.23.0",
+    "uglifyjs-webpack-plugin": "^2.0.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
   }
 }

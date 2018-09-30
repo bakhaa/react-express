@@ -6,7 +6,8 @@ module.exports = {
   "globals": {
     "document": 1,
     "shallowToJson": 1,
-    "createShallow": 1
+    "createShallow": 1,
+    "window": 1
   },
   "rules": {
     "comma-dangle": 0,
@@ -23,6 +24,7 @@ module.exports = {
     "react/require-default-props": 0,
     "react/no-array-index-key": 0,
     "no-underscore-dangle": 0,
-    "react/jsx-one-expression-per-line": 0
+    "react/jsx-one-expression-per-line": 0,
+    "no-extra-boolean-cast": 0,
   },
 };

@@ -1,22 +1,32 @@
 import express from 'express';
+import path from 'path';
 import React from 'react';
 import { StaticRouter } from 'react-router';
 import ReactDOMServer from 'react-dom/server';
-import { renderHTML } from './utils';
-import { App } from '../client/App';
+import { Provider } from 'react-redux';
+
+// client
+import App from '../client/components/app';
+import configureStore from '../client/store';
 
 const app = express();
 
+app.use(express.static(path.join(__dirname, '/public')));
+
 app.use((req, res) => {
   const context = {};
+  const store = configureStore();
+  const initialState = store.getState();
 
   const componentHTML = ReactDOMServer.renderToString(
-    <StaticRouter
-      location={req.url}
-      context={context}
-    >
-      <App />
-    </StaticRouter>
+    <Provider store={store}>
+      <StaticRouter
+        location={req.url}
+        context={context}
+      >
+        <App />
+      </StaticRouter>
+    </Provider>
   );
 
   if (context.url) {
@@ -25,7 +35,10 @@ app.use((req, res) => {
     });
     res.end();
   } else {
-    res.send(renderHTML({ componentHTML }));
+    res.status(200).render(path.join(__dirname, './views/index.ejs'), {
+      html: componentHTML,
+      __INITIAL_STATE__: JSON.stringify(initialState),
+    });
   }
 });
 
