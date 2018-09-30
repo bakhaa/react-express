@@ -1,36 +1,22 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-// reducers
-import { changeState } from '../../actions';
+import Nav from '../nav';
 
-// selecrors
+// pages
+import ListPage from '../../pages/ListPage';
+import HomePage from '../../pages/HomePage';
 
-class App extends Component {
-  componentDidMount() {
-    const { onChangeState } = this.props;
-    onChangeState();
-  }
+const App = () => (
+  <div>
+    <Nav />
+    <main>
+      <Switch>
+        <Route path="/" exact component={HomePage} />
+        <Route path="/list" component={ListPage} />
+      </Switch>
+    </main>
+  </div>
+);
 
-  render() {
-    const { mainState } = this.props;
-    return (
-      <div>{mainState}</div>
-    );
-  }
-}
-
-const mapStateToProps = (state) => ({
-  mainState: state.main.mainState
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onChangeState: () => {
-    dispatch(changeState());
-  },
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(App);
+export default App;
