@@ -6,7 +6,7 @@ import ReactDOMServer from 'react-dom/server';
 import { Provider } from 'react-redux';
 
 // client
-import App from '../client/components/app';
+import App from '../client/App';
 import configureStore from '../client/store';
 
 const app = express();

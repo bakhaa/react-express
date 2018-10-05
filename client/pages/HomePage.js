@@ -1,6 +1,6 @@
 import React from 'react';
 
-const HomePage = () => (
+export const HomePage = () => (
   <div>HomePage</div>
 );
 

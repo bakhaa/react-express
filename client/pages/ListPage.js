@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ListPage = () => (
+export const ListPage = () => (
   <div>ListPage</div>
 );
 
