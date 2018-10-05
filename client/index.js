@@ -11,6 +11,9 @@ const initialState = window.__INITIAL_STATE__ || {};
 const store = configureStore(initialState);
 const renderMethod = !!module.hot ? ReactDOM.render : ReactDOM.hydrate;
 
+// Allow the passed state to be garbage-collected
+delete window.__INITIAL_STATE__;
+
 const render = (Component) => {
   renderMethod((
     <AppContainer>
