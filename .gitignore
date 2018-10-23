@@ -1,3 +1,6 @@
-node_modules
+database/
 
-server/public
+web/node_modules/
+web/public/js
+
+api/node_modules/

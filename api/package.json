@@ -1,0 +1,33 @@
+{
+  "name": "api",
+  "description": "Isomorphic application written in ReactJS with ExpressJS server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bakhaa/react-express"
+  },
+  "keywords": [
+    "react",
+    "express",
+    "webpack",
+    "babel",
+    "redux"
+  ],
+  "author": "Alex Bakh",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/register": "^7.0.0",
+    "nodemon": "^1.18.4"
+  }
+}
