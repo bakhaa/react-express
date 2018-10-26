@@ -4,7 +4,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <title>Title</title>
+  <title>React-express</title>
+  <style id='jss-styles'>
+    body {
+      margin: 0px;
+      padding: 0px;
+    }
+    <%- css %>
+    <%- styleTags %>
+  </style>
+
 </head>
 
 <body>
@@ -13,7 +22,6 @@
   </div>
   <script>
     window.__INITIAL_STATE__ = <%- __INITIAL_STATE__ %>
-
   </script>
   <script src="/public/js/bundle.js"></script>
 </body>
