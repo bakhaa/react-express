@@ -1,0 +1,16 @@
+type Todo {
+  id: Int!
+  text: String!
+}
+type Query {
+  allTodos: [Todo!]!
+  getTodo(todoId: Int!): Todo
+}
+type AddTodoResponse {
+  ok: Boolean!
+  todo: Todo!
+  # errors: [Error!]
+}
+type Mutation {
+  addTodo(text: String!): AddTodoResponse!
+}

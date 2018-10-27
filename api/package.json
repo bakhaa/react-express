@@ -17,7 +17,13 @@
   "author": "Alex Bakh",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.16.4"
+    "apollo-server-express": "^2.1.0",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.4",
+    "graphql": "^14.0.2",
+    "merge-graphql-schemas": "^1.5.7"
   },
   "scripts": {
     "start": "nodemon index.js"
@@ -28,6 +34,11 @@
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/register": "^7.0.0",
+    "eslint": "^5.6.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
     "nodemon": "^1.18.4"
   }
 }
