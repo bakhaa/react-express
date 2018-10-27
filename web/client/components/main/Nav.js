@@ -38,7 +38,7 @@ const links = [
   },
 ];
 
-export const Nav = ({ classes }) => (
+const Nav = ({ classes }) => (
   <Drawer
     variant="permanent"
     position="fixed"

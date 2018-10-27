@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import { SheetsRegistry } from 'react-jss/lib/jss';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { MuiThemeProvider, createGenerateClassName } from '@material-ui/core/styles';
-import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 
 // client
 import App from '../../client/components/main';
@@ -21,18 +20,15 @@ export default (req, res) => {
   const sheetsRegistry = new SheetsRegistry();
   const generateClassName = createGenerateClassName();
   const sheetsManager = new Map();
-  const sheet = new ServerStyleSheet();
 
   const componentHTML = ReactDOMServer.renderToString(
     <Provider store={store}>
       <StaticRouter location={req.url} context={context}>
-        <StyleSheetManager sheet={sheet.instance}>
-          <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
-            <MuiThemeProvider theme={theme} sheetsManager={sheetsManager}>
-              <App />
-            </MuiThemeProvider>
-          </JssProvider>
-        </StyleSheetManager>
+        <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
+          <MuiThemeProvider theme={theme} sheetsManager={sheetsManager}>
+            <App />
+          </MuiThemeProvider>
+        </JssProvider>
       </StaticRouter>
     </Provider>,
   );
@@ -44,13 +40,11 @@ export default (req, res) => {
     res.end();
   } else {
     const css = sheetsRegistry.toString();
-    const styleTags = sheet.getStyleTags();
 
     res.status(200).render(path.join(__dirname, '../views/index.ejs'), {
       html: componentHTML,
       __INITIAL_STATE__: JSON.stringify(initialState),
       css,
-      styleTags,
     });
   }
 };

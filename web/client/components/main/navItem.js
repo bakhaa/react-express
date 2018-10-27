@@ -25,7 +25,7 @@ const styles = () => ({
   },
 });
 
-export const NavItem = ({ classes, title, to, icon, exact }) => (
+const NavItem = ({ classes, title, to, icon, exact }) => (
   <Tooltip
     enterDelay={150}
     leaveDelay={200}

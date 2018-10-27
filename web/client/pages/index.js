@@ -1,5 +1,5 @@
-export { HomePage } from './HomePage';
-export { TodoPage } from './TodoPage';
-export { NotFoundPage } from './NotFoundPage';
-export { ServerErrorPage } from './ServerErrorPage';
-export { PermissionsDeniedPage } from './PermissionsDeniedPage';
+export { default as HomePage } from './HomePage';
+export { default as TodoPage } from './TodoPage';
+export { default as NotFoundPage } from './NotFoundPage';
+export { default as ServerErrorPage } from './ServerErrorPage';
+export { default as PermissionsDeniedPage } from './PermissionsDeniedPage';

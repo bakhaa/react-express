@@ -1,7 +1,7 @@
 import React from 'react';
 import ErrorPage from '../components/errorPage';
 
-export const ServerErrorPage = () => (
+const ServerErrorPage = () => (
   <ErrorPage
     code={500}
     image="/public/images/500.svg"
