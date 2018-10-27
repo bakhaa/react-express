@@ -5,14 +5,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>React-express</title>
-  <style id='jss-styles'>
+  <link rel="icon" href="/public/favicon.ico">
+  <style>
     body {
       margin: 0px;
       padding: 0px;
     }
+  </style>
+  <style id='jss-styles'>
     <%- css %>
   </style>
-
 </head>
 
 <body>
@@ -22,7 +24,7 @@
   <script>
     window.__INITIAL_STATE__ = <%- __INITIAL_STATE__ %>
   </script>
-  <script src="/public/js/bundle.js"></script>
+  <script src="/public/js/bundle.js" async></script>
 </body>
 
 </html>

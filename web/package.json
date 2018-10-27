@@ -7,7 +7,7 @@
     "build": "cross-env NODE_ENV=production webpack --config webpack/client.prod.js --progress",
     "dev": "webpack-dev-server --config webpack/client.dev.js",
     "dev:server": "npm run build && cross-env BABEL_ENV='node' nodemon --watch server server/index.js",
-    "start": "npm run build && node server/index.js",
+    "start": "npm run build && cross-env NODE_ENV=production node server/index.js",
     "lint": "eslint --ext .jsx,.js ./"
   },
   "repository": {
@@ -29,12 +29,9 @@
     "cross-env": "^5.2.0",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
-    "jss": "^9.8.7",
-    "moment": "^2.22.2",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-jss": "^8.6.1",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
