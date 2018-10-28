@@ -9,7 +9,7 @@ export default {
   Mutation: {
     addTodo: (parent, { text }, { models }) => {
       const todo = { id: todos.length + 1, text };
-      todos.push(todo);
+      todos.unshift(todo);
       return { ok: true, todo };
     },
   },

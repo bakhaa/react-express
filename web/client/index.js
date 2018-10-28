@@ -1,15 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter as Router } from 'react-router-dom';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
 
 import App from './App';
 
-import configureStore from './store';
+const uri = process.env.API_URI || 'http://localhost:3003/graphql';
 
-const initialState = window.__INITIAL_STATE__ || {};
-const store = configureStore(initialState);
+const client = new ApolloClient({
+  uri,
+});
+
 const renderMethod = !!module.hot ? ReactDOM.render : ReactDOM.hydrate;
 
 // Allow the passed state to be garbage-collected
@@ -18,11 +21,11 @@ delete window.__INITIAL_STATE__;
 const render = Component => {
   renderMethod(
     <AppContainer>
-      <Provider store={store}>
+      <ApolloProvider client={client}>
         <Router>
           <Component />
         </Router>
-      </Provider>
+      </ApolloProvider>
     </AppContainer>,
     document.getElementById('root'),
   );

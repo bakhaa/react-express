@@ -1,6 +1,11 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import { TodoList, AddTodo } from '../components/todo';
 
-const TodoPage = () => <Typography>Todo page.</Typography>;
+const TodoPage = () => (
+  <React.Fragment>
+    <AddTodo />
+    <TodoList />
+  </React.Fragment>
+);
 
 export default TodoPage;
