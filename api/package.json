@@ -26,7 +26,8 @@
     "merge-graphql-schemas": "^1.5.7"
   },
   "scripts": {
-    "start": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",

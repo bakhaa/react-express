@@ -24,7 +24,7 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app });
 
-const PORT = process.env.NODE_PORT || 3003;
+const PORT = process.env.API_PORT || 3003;
 
 app.listen(PORT, () => {
   console.log(`Server listening on: ${PORT}`); // eslint-disable-line no-console

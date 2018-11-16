@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const PORT = process.env.FRONTEND_PORT || 8080;
+const PORT = process.env.FRONTEND_PORT || 3003;
 
 module.exports = {
   context: path.join(__dirname, '../client'),
@@ -51,6 +51,11 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        API_URI: JSON.stringify(`http://localhost:${PORT}/graphql`),
+      },
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new HtmlWebpackPlugin({

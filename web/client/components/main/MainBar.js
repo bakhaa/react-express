@@ -15,7 +15,7 @@ const styles = theme => ({
 export const Bar = ({ classes }) => (
   <AppBar position="fixed" className={classes.appBar}>
     <Toolbar disableGutters={false}>
-      <Typography variant="title" color="inherit" noWrap>
+      <Typography variant="h6" color="inherit" noWrap>
         Logo
       </Typography>
     </Toolbar>

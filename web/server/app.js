@@ -12,7 +12,7 @@ app.use('/public', express.static(path.join(__dirname, '../public')));
 
 app.use(reactRender);
 
-const PORT = process.env.PORT || 3003;
+const PORT = process.env.FRONTEND_PORT || 3003;
 
 app.listen(PORT, () => {
   console.log(`Server listening on: ${PORT}`); // eslint-disable-line no-console

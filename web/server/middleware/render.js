@@ -3,6 +3,11 @@ import path from 'path';
 import { StaticRouter } from 'react-router';
 import ReactDOMServer from 'react-dom/server';
 import { Provider } from 'react-redux';
+import { ApolloProvider } from 'react-apollo';
+import fetch from 'node-fetch';
+import { ApolloClient } from 'apollo-client';
+import { createHttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 import { SheetsRegistry } from 'react-jss/lib/jss';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { MuiThemeProvider, createGenerateClassName } from '@material-ui/core/styles';
@@ -17,19 +22,36 @@ export default (req, res) => {
   const store = configureStore();
   const initialState = store.getState();
 
+  const uri = process.env.API_URI || 'http://localhost:3003/graphql';
+
+  const client = new ApolloClient({
+    link: createHttpLink({
+      credentials: 'same-origin',
+      headers: {
+        cookie: req.header('Cookie'),
+      },
+      uri,
+      fetch,
+    }),
+    ssrMode: true,
+    cache: new InMemoryCache(),
+  });
+
   const sheetsRegistry = new SheetsRegistry();
   const generateClassName = createGenerateClassName();
   const sheetsManager = new Map();
 
   const componentHTML = ReactDOMServer.renderToString(
     <Provider store={store}>
-      <StaticRouter location={req.url} context={context}>
-        <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
-          <MuiThemeProvider theme={theme} sheetsManager={sheetsManager}>
-            <App />
-          </MuiThemeProvider>
-        </JssProvider>
-      </StaticRouter>
+      <ApolloProvider client={client}>
+        <StaticRouter location={req.url} context={context}>
+          <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
+            <MuiThemeProvider theme={theme} sheetsManager={sheetsManager}>
+              <App />
+            </MuiThemeProvider>
+          </JssProvider>
+        </StaticRouter>
+      </ApolloProvider>
     </Provider>,
   );
 
