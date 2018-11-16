@@ -2,9 +2,10 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { graphql, compose } from 'react-apollo';
-import gql from 'graphql-tag';
 import Typography from '@material-ui/core/Typography';
 import Todo from './Todo';
+
+import { todosQuery } from './graphql';
 
 class TodoList extends PureComponent {
   redirect() {
@@ -26,30 +27,21 @@ class TodoList extends PureComponent {
 
   render() {
     const {
-      data: { loading, allTodos },
+      data: { loading, getTodos },
     } = this.props;
 
     if (loading) return <Typography>Loading...</Typography>;
-    if (!allTodos) return null;
+    if (!getTodos) return null;
 
     return (
       <div style={{ maxWidth: 500 }}>
-        {allTodos.map(item => (
-          <Todo key={item.id} text={item.text} />
+        {getTodos.map(item => (
+          <Todo key={item._id} text={item.text} />
         ))}
       </div>
     );
   }
 }
-
-const todosQuery = gql`
-  query {
-    allTodos {
-      id
-      text
-    }
-  }
-`;
 
 TodoList.propTypes = {
   data: PropTypes.object.isRequired,

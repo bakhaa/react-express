@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControl from '@material-ui/core/FormControl';
 import { withFormik } from 'formik';
+
+import { todosQuery } from './graphql';
 
 const AddTodo = ({ values, handleChange, handleSubmit, isSubmitting }) => (
   <FormControl style={{ maxWidth: 500, marginBottom: 20 }} component="fieldset">
@@ -33,22 +35,16 @@ const AddTodo = ({ values, handleChange, handleSubmit, isSubmitting }) => (
     </FormGroup>
   </FormControl>
 );
-const todosQuery = gql`
-  query {
-    allTodos {
-      id
-      text
-    }
-  }
-`;
 
 const addTodoMutation = gql`
   mutation($text: String!) {
     addTodo(text: $text) {
       ok
       todo {
-        id
+        _id
         text
+        descripiton
+        created
       }
     }
   }
@@ -80,8 +76,10 @@ export default compose(
             ok: true,
             todo: {
               __typename: 'Todo',
-              id: -1,
+              _id: -1,
               text: values.text,
+              descripiton: '',
+              created: -1,
             },
           },
         },
@@ -90,7 +88,7 @@ export default compose(
           if (!ok) return;
 
           const data = store.readQuery({ query: todosQuery });
-          data.allTodos.unshift(todo);
+          data.getTodos.unshift(todo);
           store.writeQuery({ query: todosQuery, data });
         },
       });
