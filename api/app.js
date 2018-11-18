@@ -23,13 +23,6 @@ app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, '/public')));
 
-app.get('/api/login', passport.authenticate('local'), (req, res) => res.sendStatus(200));
-
-app.get('/api/logout', (req, res) => {
-  req.logout();
-  return res.sendStatus(200);
-});
-
 const typeDefs = mergeTypes(fileLoader(path.join(__dirname, './schema')));
 const resolvers = mergeResolvers(fileLoader(path.join(__dirname, './resolvers')));
 
