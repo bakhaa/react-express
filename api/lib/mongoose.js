@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 
 const { ObjectId } = mongoose.Types;
-ObjectId.prototype.valueOf = function str() {
+
+ObjectId.prototype.valueOf = function () {
   return this.toString();
 };
 
@@ -13,7 +14,7 @@ const MONGO_URI = `mongodb://${DATABASE_HOST}/${DATABASE_NAME}`;
 mongoose.Promise = global.Promise;
 mongoose.connect(
   MONGO_URI,
-  { socketTimeoutMS: 0, connectTimeoutMS: 0, useNewUrlParser: true },
+  { socketTimeoutMS: 0, connectTimeoutMS: 0, useNewUrlParser: true, useCreateIndex: true },
 );
 
 /* connected cb mongoose */

@@ -6,28 +6,19 @@ type Todo {
   updated: String
 }
 
-type Error {
-  message: String!
-}
-
-type dataResponse {
+type todoResponse {
   ok: Boolean!
-  todo: Todo!
-  errors: [Error!]
-}
-
-type withoutDataResponse {
-  ok: Boolean!
+  todo: Todo
   errors: [Error!]
 }
 
 type Query {
   getTodos: [Todo!]!
-  getTodo(_id: String!): Todo
+  getTodo(_id: String!): Todo!
 }
 
 type Mutation {
-  addTodo(descripiton: String, text: String!): dataResponse!
-  updateTodo(_id: String!, text: String!): dataResponse!
-  deleteTodo(_id: String!): withoutDataResponse!
+  addTodo(descripiton: String, text: String!): todoResponse!
+  updateTodo(_id: String!, text: String!): todoResponse!
+  deleteTodo(_id: String!): todoResponse!
 }

@@ -25,5 +25,6 @@ module.exports = {
     'no-underscore-dangle': 0,
     'react/jsx-one-expression-per-line': 0,
     'no-extra-boolean-cast': 0,
+    'func-names': 0,
   },
 };

@@ -21,7 +21,7 @@ export default {
         const todo = new TodoSchema({ ...args });
         await todo.save();
 
-        return { ok: true, todo, errors: [] };
+        return { ok: true, todo };
       } catch (error) {
         return { ok: false, errors: [{ message: error }] };
       }
@@ -30,7 +30,7 @@ export default {
       try {
         const todo = await TodoSchema.findOneAndUpdate({ _id }, { text }, { new: true });
 
-        return { ok: true, todo, errors: [] };
+        return { ok: true, todo };
       } catch (error) {
         return { ok: false, errors: [{ message: error }] };
       }
@@ -39,7 +39,7 @@ export default {
       try {
         await TodoSchema.findOneAndDelete({ _id });
 
-        return { ok: true, errors: [] };
+        return { ok: true };
       } catch (error) {
         return { ok: false, errors: [{ message: error }] };
       }
