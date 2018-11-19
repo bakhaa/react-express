@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const SALT_WORK_FACTOR = 12;
 
 const userSchema = new Schema({
-  username: { type: String },
+  username: { type: String, default: '' },
   password: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   created: { type: Date, default: Date.now },

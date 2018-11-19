@@ -12,6 +12,7 @@ export default {
       const user = await UserSchema.findById(_id).exec();
       return user;
     },
+    me: requireAuth.createResolver(async (parent, args, { user }) => user),
   },
   Mutation: {
     login: (parent, args, ctx) => new Promise((resolve, reject) => {

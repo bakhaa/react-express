@@ -2,7 +2,6 @@ import express from 'express';
 import path from 'path';
 import cookie from 'cookie-parser';
 import bodyParser from 'body-parser';
-import cors from 'cors';
 import passport from 'passport';
 import { ApolloServer } from 'apollo-server-express';
 import { fileLoader, mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
@@ -13,7 +12,6 @@ import session from './lib/session';
 const app = express();
 
 app.use(session);
-app.use(cors('*'));
 app.use(cookie());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -31,7 +29,6 @@ const graphqlEndpoint = '/api/graphql';
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  cors: true,
   playground: {
     settings: {
       'request.credentials': 'include',
@@ -43,9 +40,14 @@ const server = new ApolloServer({
   },
 });
 
+const origin = process.env.FRONTEND_PORT
+  ? `http://localhost:${process.env.FRONTEND_PORT}`
+  : 'http://localhost:3003';
+
 server.applyMiddleware({
   app,
   path: graphqlEndpoint,
+  cors: { credentials: true, origin },
 });
 
 const PORT = process.env.API_PORT || 3004;

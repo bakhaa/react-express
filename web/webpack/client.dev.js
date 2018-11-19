@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const PORT = process.env.FRONTEND_PORT || 3003;
-const API_PORT = process.env.PORT || 3004;
+const API_PORT = process.env.FRONTEND_PORT || 3004;
 
 module.exports = {
   context: path.join(__dirname, '../client'),

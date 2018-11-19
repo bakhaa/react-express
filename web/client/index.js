@@ -11,6 +11,7 @@ const uri = process.env.API_URI || 'http://localhost:3003/api/graphql';
 
 const client = new ApolloClient({
   uri,
+  credentials: 'include',
 });
 
 const renderMethod = !!module.hot ? ReactDOM.render : ReactDOM.hydrate;

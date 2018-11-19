@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const PORT = process.env.FRONTEND_PORT || 3003;
+const API_PORT = process.env.FRONTEND_PORT || 3004;
 
 module.exports = {
   context: path.join(__dirname, '../client'),
@@ -48,7 +48,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
-        API_URI: JSON.stringify(`http://localhost:${PORT}/graphql`),
+        API_URI: JSON.stringify(`http://localhost:${API_PORT}/graphql`),
       },
     }),
     new UglifyJSPlugin({
