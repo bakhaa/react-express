@@ -8,19 +8,15 @@ import Todo from './Todo';
 import { todosQuery } from './graphql';
 
 class TodoList extends PureComponent {
-  redirect() {
-    const { history } = this.props;
-    history.push('/500');
-  }
-
   componentWillReceiveProps(nextProps) {
     const {
       data: { loading },
+      history,
     } = this.props;
 
     if (loading && !nextProps.data.loading) {
       if (nextProps.data.error) {
-        this.redirect();
+        history.push('/500');
       }
     }
   }

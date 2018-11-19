@@ -25,9 +25,9 @@ export default {
           });
         }
 
-        ctx.req.logIn(user, error => {
+        return ctx.req.logIn(user, error => {
           if (error) reject(error);
-          resolve({ errors: [], user, ok: true });
+          return resolve({ errors: [], user, ok: true });
         });
       })({ query: args });
     }),

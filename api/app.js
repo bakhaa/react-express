@@ -48,7 +48,7 @@ server.applyMiddleware({
   path: graphqlEndpoint,
 });
 
-const PORT = process.env.API_PORT || 3003;
+const PORT = process.env.API_PORT || 3004;
 
 app.listen(PORT, () => {
   console.log(`Server listening on: ${PORT}`); // eslint-disable-line no-console
