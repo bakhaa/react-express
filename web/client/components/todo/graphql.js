@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 const todosQuery = gql`
-  query {
+  query getTodos {
     getTodos {
       _id
       text

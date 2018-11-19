@@ -22,7 +22,7 @@ export default {
           return resolve({
             user: null,
             ok: false,
-            errors: [{ message: 'Incorrect login or password', path: 'login' }],
+            errors: [{ message: 'Incorrect login or password', path: 'email' }],
           });
         }
 
