@@ -1,18 +1,22 @@
 import passport from 'passport';
-import { UserSchema, requireAuth } from '../models/user';
+import { UserSchema, isAuthenticated } from '../models/user';
 
 export default {
   User: {},
   Query: {
-    getUsers: requireAuth.createResolver(async () => {
+    getUsers: async (_, __, { req }) => {
+      isAuthenticated(req);
       const users = await UserSchema.find().exec();
       return users;
-    }),
+    },
     getUser: async (parent, { _id }) => {
       const user = await UserSchema.findById(_id).exec();
       return user;
     },
-    me: requireAuth.createResolver(async (parent, args, { user }) => user),
+    me: async (parent, args, { user, req }) => {
+      isAuthenticated(req);
+      return user;
+    },
   },
   Mutation: {
     login: (parent, args, ctx) => new Promise((resolve, reject) => {

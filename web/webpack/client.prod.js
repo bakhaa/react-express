@@ -48,7 +48,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
-        API_URI: JSON.stringify(`http://localhost:${API_PORT}/graphql`),
+        API_URI: JSON.stringify(`http://localhost:${API_PORT}/api/graphql`),
       },
     }),
     new UglifyJSPlugin({

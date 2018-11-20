@@ -13,7 +13,7 @@ import JssProvider from 'react-jss/lib/JssProvider';
 import { MuiThemeProvider, createGenerateClassName } from '@material-ui/core/styles';
 
 // client
-import App from '../../client/components/main';
+import Routes from '../../client/routes';
 import configureStore from '../../client/store';
 import theme from '../../client/theme';
 
@@ -22,7 +22,7 @@ export default (req, res) => {
   const store = configureStore();
   const initialState = store.getState();
 
-  const uri = process.env.API_URI || 'http://localhost:3003/graphql';
+  const uri = process.env.API_URI || 'http://localhost:3004/api/graphql';
 
   const client = new ApolloClient({
     link: createHttpLink({
@@ -47,7 +47,7 @@ export default (req, res) => {
         <StaticRouter location={req.url} context={context}>
           <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
             <MuiThemeProvider theme={theme} sheetsManager={sheetsManager}>
-              <App />
+              <Routes />
             </MuiThemeProvider>
           </JssProvider>
         </StaticRouter>

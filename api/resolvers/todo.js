@@ -1,5 +1,5 @@
 import TodoSchema from '../models/todo';
-import { requireAuth } from '../models/user';
+import { isAuthenticated } from '../models/user';
 
 export default {
   Todo: {},
@@ -8,17 +8,20 @@ export default {
       const todo = await TodoSchema.findById(_id).exec();
       return todo;
     },
-    getTodos: requireAuth.createResolver(async () => {
+    getTodos: async (_, __, { req }) => {
+      isAuthenticated(req);
       // TODO: add pagination
       const todos = await TodoSchema.find()
         .limit(20)
         .sort({ created: -1 });
       return todos;
-    }),
+    },
   },
   Mutation: {
-    addTodo: async (parent, args) => {
+    addTodo: async (parent, args, { req }) => {
       try {
+        isAuthenticated(req);
+
         const todo = new TodoSchema({ ...args });
         await todo.save();
 

@@ -1,2 +1,2 @@
 export { default as UserSchema } from './user';
-export { default as requireAuth } from './permissions';
+export { isAuthenticated } from './permissions';
