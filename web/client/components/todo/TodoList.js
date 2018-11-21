@@ -5,6 +5,7 @@ import { graphql, compose } from 'react-apollo';
 import styled from 'styled-components';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
 
 import Todo from './Todo';
 
@@ -64,6 +65,7 @@ class TodoList extends PureComponent {
     }
 
     if (!getTodos) return null;
+    if (!getTodos.length) return <Typography>Todo list is empty, add a new task...</Typography>;
 
     return (
       <List>
