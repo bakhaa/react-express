@@ -1,6 +1,6 @@
 {
   "name": "react-expressjs",
-  "version": "0.2.0",
+  "version": "1.0.0-beta",
   "description": "Isomorphic application written in ReactJS with ExpressJS server",
   "main": "server/index.js",
   "scripts": {

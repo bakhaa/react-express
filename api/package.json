@@ -1,7 +1,7 @@
 {
   "name": "api",
   "description": "Isomorphic application written in ReactJS with ExpressJS server",
-  "version": "1.0.0",
+  "version": "1.0.0-beta",
   "main": "index.js",
   "repository": {
     "type": "git",
