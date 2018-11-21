@@ -27,6 +27,7 @@ class Todo extends PureComponent {
     this.onChangeExpanded = this.onChangeExpanded.bind(this);
     this.isChanged = this.isChanged.bind(this);
     this.isExpanded = this.isExpanded.bind(this);
+    this.getShortDescription = this.getShortDescription.bind(this);
   }
 
   async componentWillReceiveProps(nextProps) {
@@ -61,6 +62,16 @@ class Todo extends PureComponent {
     return autosave || item._id === expandedId;
   }
 
+  getShortDescription(str) {
+    const shortLength = 25;
+    let description = str;
+
+    if (str.length > shortLength) {
+      description = str.slice(0, shortLength).concat('...');
+    }
+    return description;
+  }
+
   render() {
     const { item, values, handleChange, handleSubmit, isSubmitting, handleReset } = this.props;
 
@@ -91,9 +102,16 @@ class Todo extends PureComponent {
               autoFocus
             />
           ) : (
-            <Typography style={{ fontSize: 16, flexBasis: '33.33%', flexShrink: 0 }}>
-              {item.text}
-            </Typography>
+            <React.Fragment>
+              <Typography style={{ fontSize: 16, flexBasis: '50%', flexShrink: 0 }}>
+                {item.text}
+              </Typography>
+              {!!item.description.length && (
+                <Typography style={{ color: '#0000008a', fontStyle: 'italic' }}>
+                  {this.getShortDescription(item.description)}
+                </Typography>
+              )}
+            </React.Fragment>
           )}
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
