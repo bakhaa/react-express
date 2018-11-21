@@ -2,22 +2,50 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { graphql, compose } from 'react-apollo';
-import Typography from '@material-ui/core/Typography';
+import styled from 'styled-components';
+
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import Todo from './Todo';
 
 import { todosQuery } from './graphql';
 
-class TodoList extends PureComponent {
-  componentWillReceiveProps(nextProps) {
-    const {
-      data: { loading },
-      history,
-    } = this.props;
+const Loader = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+`;
 
-    if (loading && !nextProps.data.loading) {
-      if (nextProps.data.error) {
-        history.push('/500');
+const List = styled.div`
+  width: 100%;
+`;
+
+class TodoList extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = { expandedId: '' };
+
+    this.onChangeExpanded = this.onChangeExpanded.bind(this);
+  }
+
+  onChangeExpanded(id) {
+    const { expandedId } = this.state;
+
+    this.setState({
+      expandedId: expandedId === id ? null : id,
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { history } = this.props;
+
+    if (nextProps.data.error) {
+      if (nextProps.data.error.message === 'GraphQL error: Not authenticated') {
+        history.push('/login');
+        return;
       }
+      history.push('/500');
     }
   }
 
@@ -25,16 +53,29 @@ class TodoList extends PureComponent {
     const {
       data: { loading, getTodos },
     } = this.props;
+    const { expandedId } = this.state;
 
-    if (loading) return <Typography>Loading...</Typography>;
+    if (loading) {
+      return (
+        <Loader>
+          <CircularProgress />
+        </Loader>
+      );
+    }
+
     if (!getTodos) return null;
 
     return (
-      <div style={{ maxWidth: 500 }}>
+      <List>
         {getTodos.map(item => (
-          <Todo key={item._id} text={item.text} />
+          <Todo
+            key={item._id}
+            expandedId={expandedId}
+            item={item}
+            onChange={this.onChangeExpanded}
+          />
         ))}
-      </div>
+      </List>
     );
   }
 }

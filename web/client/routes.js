@@ -3,15 +3,10 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import Main from './components/main';
+
 // screens
-import {
-  HomePage,
-  TodoPage,
-  NotFoundPage,
-  ServerErrorPage,
-  PermissionsDeniedPage,
-  LoginPage,
-} from './pages';
+import { NotFoundPage, ServerErrorPage, PermissionsDeniedPage, LoginPage } from './pages';
 
 const ME = gql`
   query Me {
@@ -23,8 +18,10 @@ const ME = gql`
 
 const RequireAuth = ({ component: Component, ...rest }) => (
   <Query query={ME}>
-    {({ loading, error }) => {
-      if (!loading && !error) return <Component {...rest} />;
+    {({ loading, error, data }) => {
+      if (!loading && !error) {
+        return <Component me={data.me} {...rest} />;
+      }
       if (!loading && error) {
         return <Redirect to={{ pathname: '/login' }} />;
       }
@@ -35,8 +32,8 @@ const RequireAuth = ({ component: Component, ...rest }) => (
 
 export default () => (
   <Switch>
-    <RequireAuth path="/" exact component={HomePage} />
-    <RequireAuth path="/todo" component={TodoPage} />
+    <RequireAuth path="/" exact component={Main} />
+    <RequireAuth path="/todo" component={Main} />
     <Route path="/login" component={LoginPage} />
     <Route path="/403" component={PermissionsDeniedPage} />
     <Route path="/500" component={ServerErrorPage} />

@@ -1,11 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
+
 import { TodoList, AddTodo } from '../components/todo';
 
+const Wrap = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const TodoPage = () => (
-  <React.Fragment>
+  <Wrap>
     <AddTodo />
     <TodoList />
-  </React.Fragment>
+  </Wrap>
 );
 
 export default TodoPage;

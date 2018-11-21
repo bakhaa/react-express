@@ -1,54 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, compose } from 'react-apollo';
-import gql from 'graphql-tag';
+import { withFormik } from 'formik';
+import styled from 'styled-components';
+
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControl from '@material-ui/core/FormControl';
-import { withFormik } from 'formik';
 
-import { todosQuery } from './graphql';
+import { todosQuery, addTodoMutation } from './graphql';
+
+const Wrap = styled.div`
+  display: flex;
+  margin-bottom: 10px;
+`;
 
 const AddTodo = ({ values, handleChange, handleSubmit, isSubmitting }) => (
-  <FormControl style={{ maxWidth: 500, marginBottom: 20 }} component="fieldset">
-    <FormGroup>
-      <TextField
-        style={{ width: 500 }}
-        id="outlined-bare"
-        value={values.text}
-        name="text"
-        placeholder="Type text"
-        margin="normal"
-        variant="outlined"
-        onChange={handleChange}
-      />
-      <Button
-        variant="outlined"
-        style={{ width: 250, margin: '0 auto' }}
-        color="primary"
-        onClick={handleSubmit}
-        disabled={isSubmitting}
-      >
-        {isSubmitting ? 'Submitting...' : 'Add'}
-      </Button>
-    </FormGroup>
-  </FormControl>
+  <Wrap>
+    <TextField
+      style={{ width: 200, height: 40, marginTop: 0 }}
+      id="outlined-bare"
+      value={values.text}
+      name="text"
+      placeholder="Enter text"
+      margin="normal"
+      variant="outlined"
+      onChange={handleChange}
+    />
+    <TextField
+      style={{ width: 300, height: 40, marginTop: 0, marginLeft: 5 }}
+      id="outlined-bare"
+      value={values.description}
+      name="description"
+      placeholder="Enter description"
+      margin="normal"
+      variant="outlined"
+      onChange={handleChange}
+    />
+    <Button
+      variant="outlined"
+      style={{ height: 40, marginLeft: 10, marginRight: 10 }}
+      color="primary"
+      onClick={handleSubmit}
+      disabled={isSubmitting}
+    >
+      {isSubmitting ? 'Submitting...' : 'Add'}
+    </Button>
+  </Wrap>
 );
-
-const addTodoMutation = gql`
-  mutation($text: String!) {
-    addTodo(text: $text) {
-      ok
-      todo {
-        _id
-        text
-        descripiton
-        created
-      }
-    }
-  }
-`;
 
 AddTodo.propTypes = {
   values: PropTypes.object.isRequired,
@@ -60,7 +58,7 @@ AddTodo.propTypes = {
 export default compose(
   graphql(addTodoMutation),
   withFormik({
-    mapPropsToValues: () => ({ text: '' }),
+    mapPropsToValues: () => ({ text: '', description: '' }),
     handleSubmit: async (values, { props: { mutate }, setSubmitting, resetForm }) => {
       if (values.text === '') {
         setSubmitting(false);
@@ -69,6 +67,7 @@ export default compose(
       await mutate({
         variables: {
           text: values.text,
+          description: values.description,
         },
         optimisticResponse: {
           addTodo: {
@@ -78,7 +77,8 @@ export default compose(
               __typename: 'Todo',
               _id: -1,
               text: values.text,
-              descripiton: '',
+              completed: false,
+              description: values.description,
               created: -1,
             },
           },

@@ -4,13 +4,14 @@ const styles = () => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 70,
   },
   statusCode: {
     marginTop: 0,
     marginBottom: '10px',
     color: '#162c4d',
     fontWeight: 'bold',
-    fontSize: '45px',
+    fontSize: '75px',
   },
   statusDescription: {
     marginTop: 0,

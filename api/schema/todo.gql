@@ -1,7 +1,8 @@
 type Todo {
   _id: String!
-  text: String!
-  descripiton: String
+  text: String
+  description: String
+  completed: Boolean
   created: String
   updated: String
 }
@@ -18,7 +19,7 @@ type Query {
 }
 
 type Mutation {
-  addTodo(descripiton: String, text: String!): todoResponse!
-  updateTodo(_id: String!, text: String!): todoResponse!
+  addTodo(description: String, text: String!): todoResponse!
+  updateTodo(_id: String!, text: String, description: String, completed: Boolean): todoResponse!
   deleteTodo(_id: String!): todoResponse!
 }

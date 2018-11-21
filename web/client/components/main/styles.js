@@ -11,7 +11,6 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
     marginLeft: 60,
-    paddingTop: 80,
     minHeight: 'calc(100vh - 104px)',
     overflow: 'hidden',
   },
