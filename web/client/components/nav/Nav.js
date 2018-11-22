@@ -107,7 +107,7 @@ class Nav extends PureComponent {
             open={open}
             onClose={this.handleClose}
           >
-            <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+            <MenuItem onClick={this.handleLogout}>Log out</MenuItem>
           </Menu>
         </Bottom>
       </Drawer>
