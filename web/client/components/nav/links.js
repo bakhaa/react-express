@@ -1,6 +1,6 @@
 import React from 'react';
 // icons
-import { Dashboard, Event } from '@material-ui/icons';
+import { Dashboard, Inbox } from '@material-ui/icons';
 
 const links = [
   {
@@ -11,7 +11,7 @@ const links = [
   },
   {
     to: '/todo',
-    icon: <Event />,
+    icon: <Inbox />,
     title: 'Todos',
   },
 ];

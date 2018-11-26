@@ -3,6 +3,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import Typography from '@material-ui/core/Typography';
+
 import Main from './components/main';
 
 // screens
@@ -31,7 +33,7 @@ const RequireAuth = ({ component: Component, ...rest }) => (
       if (!loading && error) {
         return <Redirect to={{ pathname: '/login' }} />;
       }
-      return null;
+      return <Typography>Loading...</Typography>;
     }}
   </Query>
 );
@@ -40,6 +42,7 @@ export default () => (
   <Switch>
     <RequireAuth path="/" exact component={Main} />
     <RequireAuth path="/todo" component={Main} />
+    <RequireAuth path="/profile" component={Main} />
     <Route path="/login" component={LoginPage} />
     <Route path="/register" component={RegisterPage} />
     <Route path="/403" component={PermissionsDeniedPage} />

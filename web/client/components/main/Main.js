@@ -5,7 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 
 // screens
-import { HomePage, TodoPage } from '../../pages';
+import { HomePage, TodoPage, ProfilePage } from '../../pages';
 
 import { Nav } from '../nav';
 
@@ -18,6 +18,7 @@ export const Main = ({ classes, me }) => (
       <Switch>
         <Route path="/" exact component={HomePage} />
         <Route path="/todo" exact component={TodoPage} />
+        <Route path="/profile" exact component={ProfilePage} />
       </Switch>
     </main>
   </div>

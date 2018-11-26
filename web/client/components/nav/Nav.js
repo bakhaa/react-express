@@ -65,7 +65,7 @@ class Nav extends PureComponent {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, history } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
@@ -107,6 +107,7 @@ class Nav extends PureComponent {
             open={open}
             onClose={this.handleClose}
           >
+            <MenuItem onClick={() => history.push('/profile')}>Profile</MenuItem>
             <MenuItem onClick={this.handleLogout}>Log out</MenuItem>
           </Menu>
         </Bottom>
@@ -117,6 +118,7 @@ class Nav extends PureComponent {
 
 Nav.propTypes = {
   classes: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default compose(
